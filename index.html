@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Winged Whisper | Mystery Jewelry</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #050505;
+      color: #f5edf1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      overflow-x: hidden;
+    }
+
+    /* Moving stars */
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) ease-in-out infinite alternate,
+                 drift var(--drift) linear infinite;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.15; transform: scale(0.7); }
+      to { opacity: 0.9; transform: scale(1.3); }
+    }
+
+    @keyframes drift {
+      from { translate: 0 0; }
+      to { translate: 25px -45px; }
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      pointer-events: none;
+      z-index: 9999;
+      color: #e7d4df;
+      font-size: 23px;
+      line-height: 22px;
+      transform: translate(-50%, -50%);
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body, button, a {
+        cursor: none;
+      }
+
+      .cursor {
+        display: block;
+      }
+    }
+
+    /* Header and banner */
+    header {
+      background: #000;
+      text-align: center;
+      border-bottom: 1px solid #50303f;
+    }
+
+    .banner {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 35px;
+      padding: 20px;
+    }
+
+    nav a {
+      color: #e8dce3;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 3px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #c78ba9;
+    }
+
+    /* Welcome section */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 120px 20px 140px;
+      background: radial-gradient(ellipse at center, #25131e 0%, #0a080a 65%, #050505 100%);
+    }
+
+    .ornament {
+      color: #b98ba3;
+      letter-spacing: 8px;
+      font-size: 22px;
+    }
+
+    .eyebrow {
+      color: #c49aae;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 1.15;
+      margin: 25px 0;
+    }
+
+    .hero h1 span {
+      color: #c99ab3;
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 35px;
+      color: #c9bac2;
+      line-height: 1.8;
+      font-size: 22px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 16px 35px;
+      background: #6b304a;
+      border: 1px solid #c99ab3;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 2px;
+      font-family: inherit;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .button:hover {
+      background: #914a69;
+      box-shadow: 0 0 25px #9a527055;
+    }
+
+    /* Jewelry collection */
+    .collection {
+      padding: 90px 25px;
+      text-align: center;
+    }
+
+    .collection h2,
+    .about h2,
+    .cart h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      margin: 20px 0;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+      max-width: 1050px;
+      margin: 55px auto 0;
+    }
+
+    .product {
+      padding: 35px 25px;
+      background: linear-gradient(145deg, #1a1118, #090709);
+      border: 1px solid #50303f;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      border-color: #c99ab3;
+    }
+
+    .jar {
+      width: 110px;
+      height: 130px;
+      margin: 0 auto 25px;
+      border: 2px solid #bba5b1;
+      border-radius: 25px 25px 18px 18px;
+      background: linear-gradient(135deg, #392332, #100b10);
+      display: grid;
+      place-items: center;
+      font-size: 48px;
+      box-shadow: inset 0 0 20px #000;
+    }
+
+    .product h3 {
+      font-size: 25px;
+      color: #e2c7d5;
+    }
+
+    .product p {
+      color: #bcaab4;
+      line-height: 1.6;
+    }
+
+    .price {
+      display: block;
+      color: #d8a8bd;
+      font-size: 28px;
+      margin: 20px;
+    }
+
+    button {
+      background: #6b304a;
+      border: 1px solid #b98ba3;
+      color: white;
+      padding: 12px 24px;
+      font-family: inherit;
+      font-size: 18px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #914a69;
+    }
+
+    /* About section */
+    .about {
+      text-align: center;
+      padding: 90px 25px;
+      background: #100b10;
+      border-top: 1px solid #50303f;
+      border-bottom: 1px solid #50303f;
+    }
+
+    .about p {
+      max-width: 650px;
+      margin: 25px auto;
+      line-height: 1.9;
+      color: #c9bac2;
+      font-size: 21px;
+    }
+
+    /* Shopping cart */
+    .cart {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 80px 25px;
+      text-align: center;
+    }
+
+    .cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+    }
+
+    .cart-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #38232f;
+    }
+
+    .cart-items button {
+      padding: 5px 12px;
+      font-size: 15px;
+    }
+
+    .cart-total {
+      color: #d8a8bd;
+      font-size: 27px;
+    }
+
+    footer {
+      padding: 35px;
+      text-align: center;
+      background: #000;
+      border-top: 1px solid #50303f;
+      color: #a88a9a;
+      letter-spacing: 3px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 18px;
+      }
+
+      nav a {
+        font-size: 13px;
+        letter-spacing: 1px;
+      }
+
+      .hero {
+        padding: 80px 20px;
+      }
+
+      .cart-items li {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="stars"></div>
+  <div class="cursor" id="cursor">✦</div>
+
+  <header>
+    <img
+      src="wingedwhisperbanner.jpg"
+      alt="Winged Whisper"
+      class="banner"
+    >
+
+    <nav>
+      <a href="#home">HOME</a>
+      <a href="#collection">THE COLLECTION</a>
+      <a href="#about">OUR STORY</a>
+      <a href="#cart">CART (<span id="cart-count">0</span>)</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="ornament">✧ ───── ❦ ───── ✧</div>
+      <p class="eyebrow">A LITTLE MYSTERY AWAITS</p>
+
+      <h1>For the <span>beautifully</span><br> mysterious.</h1>
+
+      <p>
+        Hidden treasures. Unexpected beauty.
+        Every mystery jar holds a little piece of magic,
+        waiting to find its way to you.
+      </p>
+
+      <a href="#collection" class="button">DISCOVER YOUR TREASURE</a>
+
+      <div class="ornament" style="margin-top:45px;">
+        ✧ ───── ❦ ───── ✧
+      </div>
+    </section>
+
+    <section class="collection" id="collection">
+      <p class="eyebrow">THE MYSTERY COLLECTION</p>
+      <h2>Choose Your Mystery</h2>
+
+      <div class="product-grid">
+
+        <article class="product">
+          <div class="jar">☽</div>
+          <h3>The Little Haunting</h3>
+          <p>A little mystery for your everyday look.</p>
+          <span class="price">$12.00</span>
+          <button onclick="addToCart(1)">Add to Cart</button>
+        </article>
+
+        <article class="product">
+          <div class="jar">✧</div>
+          <h3>The Midnight Jar</h3>
+          <p>A collection of dark, romantic treasures.</p>
+          <span class="price">$25.00</span>
+          <button onclick="addToCart(2)">Add to Cart</button>
+        </article>
+
+        <article class="product">
+          <div class="jar">❦</div>
+          <h3>The Witching Hour</h3>
+          <p>A larger collection of enchanting surprises.</p>
+          <span class="price">$40.00</span>
+          <button onclick="addToCart(3)">Add to Cart</button>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="ornament">✧ ❦ ✧</div>
+      <p class="eyebrow">OUR STORY</p>
+      <h2>A Little Darkness. A Lot of Wonder.</h2>
+
+      <p>
+        Winged Whisper is a place for those who find beauty
+        in the mysterious. Each jar is filled with surprise
+        jewelry and a little piece of magic.
+      </p>
+    </section>
+
+    <section class="cart" id="cart">
+      <p class="eyebrow">YOUR TREASURES</p>
+      <h2>Your Shopping Cart</h2>
+
+      <ul class="cart-items" id="cart-items">
+        <li>Your cart is waiting for a little mystery.</li>
+      </ul>
+
+      <p class="cart-total">
+        Total: $<span id="cart-total">0.00</span>
+      </p>
+
+      <button onclick="clearCart()">Clear Cart</button>
+      <button onclick="checkout()">Checkout</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>WINGED WHISPER</p>
+    <p>✧ Made for the beautifully mysterious ✧</p>
+  </footer>
+
+  <script>
+    // Create moving sparkles
+    const stars = document.getElementById('stars');
+
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+
+      const size = Math.random() * 3 + 1;
+
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+      star.style.setProperty('--drift', (Math.random() * 20 + 15) + 's');
+
+      stars.appendChild(star);
+    }
+
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+
+    document.addEventListener('mousemove', (event) => {
+      cursor.style.left = event.clientX + 'px';
+      cursor.style.top = event.clientY + 'px';
+    });
+
+    // Shopping cart
+    const products = {
+      1: { name: 'The Little Haunting', price: 12 },
+      2: { name: 'The Midnight Jar', price: 25 },
+      3: { name: 'The Witching Hour', price: 40 }
+    };
+
+    let cart = [];
+
+    function addToCart(id) {
+      cart.push(products[id]);
+      updateCart();
+
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCart();
+
+      document.getElementById('cart-count').textContent = 0;
+    }
+
+    function updateCart() {
+      const list = document.getElementById('cart-items');
+      const total = document.getElementById('cart-total');
+
+      list.innerHTML = '';
+
+      if (cart.length === 0) {
+        list.innerHTML = '<li>Your cart is waiting for a little mystery.</li>';
+      }
+
+      let sum = 0;
+
+      cart.forEach((item, index) => {
+        sum += item.price;
+
+        const li = document.createElement('li');
+
+        li.innerHTML = `
+          <span>${item.name} — $${item.price.toFixed(2)}</span>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        `;
+
+        list.appendChild(li);
+      });
+
+      total.textContent = sum.toFixed(2);
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty. Find a little mystery first!');
+        return;
+      }
+
+      alert('Your cart is ready! Online payments will be added when your shop is ready to launch.');
+    }
+  </script>
+
+</body>
+</html>

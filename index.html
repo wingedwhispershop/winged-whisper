@@ -2,300 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#16070d">
   <title>Winged Whisper | Mystery Jewelry Jars</title>
-
   <style>
     :root {
       --rose: #c78da9;
+      --rose-light: #f0c8dd;
       --ivory: #f6edf2;
       --muted: #cbbbc4;
-      --line: rgba(231, 190, 211, 0.25);
+      --line: rgba(231,190,211,.25);
+      --panel: rgba(10,5,9,.82);
     }
-
     * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
+    html { scroll-behavior: smooth; scroll-padding-top: 20px; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: var(--ivory);
+      margin: 0; min-height: 100vh; overflow-x: hidden; color: var(--ivory);
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(135deg, #050505 0%, #16070d 55%, #4b1028 100%);
-      background-attachment: fixed;
-      cursor: none;
+      background: linear-gradient(135deg,#050505 0%,#16070d 55%,#4b1028 100%);
+      background-attachment: fixed; cursor: none;
     }
-
-    .stars,
-    .stars::before,
-    .stars::after {
-      position: fixed;
-      inset: 0;
-      content: "";
-      pointer-events: none;
-      z-index: 0;
+    a,button,input,select,textarea { font: inherit; }
+    .stars,.stars::before,.stars::after {
+      position: fixed; inset: 0; content: ""; pointer-events: none; z-index: 0;
     }
-
     .stars {
       opacity: .55;
       background-image:
-        radial-gradient(2px 2px at 8% 18%, #fff 50%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 24% 72%, #e9b8d0 50%, transparent 100%),
-        radial-gradient(2px 2px at 48% 34%, #fff 50%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 72% 16%, #e9b8d0 50%, transparent 100%),
-        radial-gradient(2px 2px at 88% 65%, #fff 50%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 62% 88%, #e9b8d0 50%, transparent 100%);
-      background-size: 420px 360px;
-      animation: twinkle 4s ease-in-out infinite alternate;
+        radial-gradient(2px 2px at 8% 18%,#fff 50%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 24% 72%,#e9b8d0 50%,transparent 100%),
+        radial-gradient(2px 2px at 48% 34%,#fff 50%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 72% 16%,#e9b8d0 50%,transparent 100%),
+        radial-gradient(2px 2px at 88% 65%,#fff 50%,transparent 100%);
+      background-size: 420px 360px; animation: twinkle 4s ease-in-out infinite alternate;
     }
-
     .stars::before {
       opacity: .6;
       background-image:
-        radial-gradient(1.5px 1.5px at 15% 45%, #fff 50%, transparent 100%),
-        radial-gradient(2px 2px at 38% 12%, #e9b8d0 50%, transparent 100%),
-        radial-gradient(1.5px 1.5px at 79% 42%, #fff 50%, transparent 100%),
-        radial-gradient(2px 2px at 93% 90%, #e9b8d0 50%, transparent 100%);
-      background-size: 510px 430px;
-      animation: twinkle 6s ease-in-out infinite alternate-reverse;
+        radial-gradient(1.5px 1.5px at 15% 45%,#fff 50%,transparent 100%),
+        radial-gradient(2px 2px at 38% 12%,#e9b8d0 50%,transparent 100%),
+        radial-gradient(1.5px 1.5px at 79% 42%,#fff 50%,transparent 100%);
+      background-size: 510px 430px; animation: twinkle 6s ease-in-out infinite alternate-reverse;
     }
-
     .stars::after {
       opacity: .35;
       background-image:
-        radial-gradient(2px 2px at 30% 25%, #fff 50%, transparent 100%),
-        radial-gradient(1px 1px at 58% 60%, #e9b8d0 50%, transparent 100%),
-        radial-gradient(2px 2px at 84% 30%, #fff 50%, transparent 100%);
-      background-size: 600px 500px;
-      animation: twinkle 3s ease-in-out infinite alternate;
+        radial-gradient(2px 2px at 30% 25%,#fff 50%,transparent 100%),
+        radial-gradient(1px 1px at 58% 60%,#e9b8d0 50%,transparent 100%);
+      background-size: 600px 500px; animation: twinkle 3s ease-in-out infinite alternate;
     }
-
-    @keyframes twinkle {
-      from { opacity: .18; }
-      to { opacity: .75; }
-    }
-
+    @keyframes twinkle { from {opacity:.18} to {opacity:.75} }
     .sparkle-cursor {
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 9999;
-      pointer-events: none;
-      color: #f6d7e8;
-      font-size: 27px;
-      line-height: 1;
-      text-shadow: 0 0 8px #e6a6c9, 0 0 18px #bd6d9c;
-      transform: translate(-50%, -50%);
+      position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none;
+      color: #f6d7e8; font-size: 27px; line-height: 1;
+      text-shadow: 0 0 8px #e6a6c9,0 0 18px #bd6d9c;
+      transform: translate(-50%,-50%);
     }
-
-    .sparkle-cursor.is-hovering {
-      color: white;
-      text-shadow: 0 0 12px #fff, 0 0 25px #e6a6c9;
-    }
-
+    .sparkle-cursor.is-hovering { color: white; text-shadow: 0 0 12px white,0 0 25px #e6a6c9; }
     .cursor-trail {
-      position: fixed;
-      z-index: 9998;
-      pointer-events: none;
-      color: #e6a6c9;
-      font-size: 12px;
-      line-height: 1;
-      animation: sparkle-fade 700ms ease-out forwards;
+      position: fixed; z-index: 9998; pointer-events: none; color: #e6a6c9;
+      font-size: 12px; line-height: 1; animation: sparkle-fade 700ms ease-out forwards;
     }
-
     @keyframes sparkle-fade {
-      0% { opacity: .9; transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; transform: translate(-50%, -90%) scale(.2); }
+      0% {opacity:.9;transform:translate(-50%,-50%) scale(1)}
+      100% {opacity:0;transform:translate(-50%,-90%) scale(.2)}
     }
-
-    header, main, footer {
-      position: relative;
-      z-index: 1;
-    }
-
+    header,main,footer { position: relative; z-index: 1; }
     header {
-      text-align: center;
-      border-bottom: 1px solid var(--line);
-      background: rgba(4, 3, 5, .78);
-      padding: 14px 20px 18px;
+      text-align: center; border-bottom: 1px solid var(--line);
+      background: rgba(4,3,5,.78); padding: 14px 20px 18px;
     }
-
-    .banner {
-      display: block;
-      width: min(100%, 760px);
-      max-height: 180px;
-      object-fit: contain;
-      margin: 0 auto 12px;
-    }
-
-    .brand-name {
-      margin: 0;
-      font-size: 28px;
-      font-weight: normal;
-      letter-spacing: 3px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 28px;
-      margin-top: 18px;
-    }
-
+    .banner { display:block;width:min(100%,760px);max-height:180px;object-fit:contain;margin:0 auto 12px; }
+    .brand-name { margin:0;font-size:28px;font-weight:normal;letter-spacing:3px; }
+    nav { display:flex;justify-content:center;flex-wrap:wrap;gap:20px 25px;margin-top:18px; }
     nav a {
-      color: var(--ivory);
-      text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: none;
+      color:var(--ivory);text-decoration:none;font-size:12px;letter-spacing:1.5px;
+      text-transform:uppercase;cursor:none;
     }
-
-    nav a:hover { color: var(--rose); }
-
-    .hero {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 90px 20px 75px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      color: var(--rose);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-size: 13px;
-    }
-
-    .hero h1 {
-      margin: 24px 0;
-      font-size: clamp(42px, 7vw, 82px);
-      line-height: 1.05;
-      font-weight: normal;
-    }
-
-    .hero h1 em { color: var(--rose); }
-
-    .hero p {
-      max-width: 650px;
-      margin: 0 auto 30px;
-      color: var(--muted);
-      font-size: 19px;
-      line-height: 1.7;
-    }
-
+    nav a:hover,nav a:focus-visible { color:var(--rose-light); }
+    .hero { max-width:900px;margin:auto;padding:82px 20px 70px;text-align:center; }
+    .eyebrow { color:var(--rose);letter-spacing:3px;text-transform:uppercase;font-size:13px; }
+    .hero h1 { margin:24px 0;font-size:clamp(42px,7vw,82px);line-height:1.05;font-weight:normal; }
+    .hero h1 em { color:var(--rose); }
+    .hero p { max-width:650px;margin:0 auto 30px;color:var(--muted);font-size:19px;line-height:1.7; }
     .button {
-      display: inline-block;
-      border: 1px solid var(--rose);
-      background: #64283f;
-      color: var(--ivory);
-      padding: 15px 28px;
-      text-decoration: none;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-size: 13px;
-      cursor: none;
-      font-family: inherit;
-      transition: background .2s, transform .2s;
+      display:inline-block;border:1px solid var(--rose);background:#64283f;color:var(--ivory);
+      padding:14px 22px;text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;
+      font-size:12px;cursor:none;font-family:inherit;transition:background .2s,transform .2s;
     }
-
-    .button:hover {
-      background: #803b59;
-      transform: translateY(-2px);
+    .button:hover,.button:focus-visible { background:#803b59;transform:translateY(-2px); }
+    .button.secondary { background:transparent; }
+    section { max-width:1150px;margin:auto;padding:42px 20px 65px; }
+    .section-heading { margin-bottom:30px;text-align:center; }
+    .section-heading h2 { margin:0 0 12px;font-size:clamp(27px,4vw,36px);font-weight:normal; }
+    .section-heading p { color:var(--muted);line-height:1.6; }
+    .size-grid,.products,.info-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px; }
+    .panel,.product,.info-card { border:1px solid var(--line);background:var(--panel);padding:22px; }
+    .size-card { text-align:center; }
+    .size-card h3,.info-card h3 { margin-top:0;font-weight:normal; }
+    .price { color:var(--rose-light);font-size:30px;margin:12px 0; }
+    .muted { color:var(--muted);line-height:1.65; }
+    .selector-wrap { max-width:650px;margin:30px auto 0;padding:22px;border:1px solid var(--line);background:rgba(10,5,9,.72); }
+    label { display:block;margin-bottom:9px;color:var(--rose-light); }
+    select,input,textarea {
+      width:100%;color:var(--ivory);background:#170b12;border:1px solid rgba(231,190,211,.4);
+      padding:12px;border-radius:0;
     }
-
-    section {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 45px 20px 70px;
-    }
-
-    .section-heading {
-      margin-bottom: 35px;
-      text-align: center;
-    }
-
-    .section-heading h2 {
-      margin: 0 0 12px;
-      font-size: 34px;
-      font-weight: normal;
-    }
-
-    .section-heading p { color: var(--muted); }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-
-    .product {
-      padding: 22px;
-      text-align: center;
-      border: 1px solid var(--line);
-      background: rgba(10, 5, 9, .76);
-      transition: transform .2s, border-color .2s;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-      border-color: var(--rose);
-    }
-
+    select:focus,input:focus,textarea:focus { outline:2px solid var(--rose);outline-offset:2px; }
+    .selected-theme { color:var(--muted);min-height:48px;line-height:1.5;margin:14px 0; }
+    .checkout-actions { display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px; }
+    .product { text-align:center;transition:transform .2s,border-color .2s; }
+    .product:hover { transform:translateY(-4px);border-color:var(--rose); }
     .jar-art {
-      display: grid;
-      place-items: center;
-      min-height: 100px;
-      margin-bottom: 18px;
-      font-size: 58px;
-      background: radial-gradient(circle, rgba(199, 141, 169, .17), transparent 70%);
+      display:grid;place-items:center;min-height:90px;margin-bottom:12px;font-size:52px;
+      background:radial-gradient(circle,rgba(199,141,169,.17),transparent 70%);
     }
-
-    .product h3 {
-      margin: 8px 0;
-      font-size: 21px;
-      font-weight: normal;
+    .product h3 { margin:8px 0;font-size:21px;font-weight:normal; }
+    .product p { color:var(--muted);line-height:1.6;font-size:14px; }
+    .story { max-width:760px;text-align:center;line-height:1.8;color:var(--muted); }
+    .story h2 { color:var(--ivory);font-weight:normal; }
+    .steps { counter-reset:step; }
+    .step { position:relative;padding-left:54px; }
+    .step::before {
+      counter-increment:step;content:counter(step);position:absolute;left:0;top:0;
+      width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--rose);color:var(--rose-light);
     }
-
-    .product p {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .story {
-      max-width: 760px;
-      text-align: center;
-      line-height: 1.8;
-      color: var(--muted);
-    }
-
-    .story h2 {
-      color: var(--ivory);
-      font-weight: normal;
-    }
-
+    details { border-bottom:1px solid var(--line);padding:16px 0; }
+    summary { cursor:pointer;color:var(--rose-light); }
+    details p { color:var(--muted);line-height:1.65; }
+    .contact-form { max-width:650px;margin:auto; }
+    .contact-form label { margin-top:15px; }
+    .contact-form textarea { min-height:130px;resize:vertical; }
+    .form-note { font-size:13px;color:var(--muted);line-height:1.5; }
     footer {
-      padding: 28px 20px;
-      text-align: center;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      background: rgba(4, 3, 5, .65);
-      font-size: 13px;
+      padding:28px 20px;text-align:center;border-top:1px solid var(--line);
+      color:var(--muted);background:rgba(4,3,5,.65);font-size:13px;line-height:1.8;
     }
-
-    @media (hover: none), (pointer: coarse) {
-      body, nav a, .button { cursor: auto; }
-      .sparkle-cursor { display: none; }
+    footer a { color:var(--rose-light); }
+    @media (hover:none),(pointer:coarse) {
+      body,nav a,.button { cursor:auto; }
+      .sparkle-cursor { display:none; }
     }
-
-    @media (max-width: 600px) {
-      .hero { padding-top: 65px; }
-      nav { gap: 15px; }
-      nav a { font-size: 11px; }
+    @media (max-width:600px) {
+      .hero { padding-top:58px; }
+      nav { gap:13px 16px; }
+      nav a { font-size:11px; }
+      .hero p { font-size:17px; }
+      .checkout-actions .button { width:100%;text-align:center; }
+      .panel,.product,.info-card { padding:18px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important; }
     }
   </style>
 </head>
@@ -305,19 +162,16 @@
   <div class="sparkle-cursor" id="sparkle-cursor" aria-hidden="true">✦</div>
 
   <header>
-    <img
-      class="banner"
-      src="wingedwhisperbanner.jpg"
-      alt="Winged Whisper"
-      onerror="this.style.display='none'"
-    >
-
+    <img class="banner" src="wingedwhisperbanner.jpg" alt="Winged Whisper" onerror="this.style.display='none'">
     <p class="brand-name">Winged Whisper</p>
-
-    <nav>
+    <nav aria-label="Main navigation">
       <a href="#home">Home</a>
-      <a href="#collection">The Collection</a>
-      <a href="#story">Our Story</a>
+      <a href="#collection">Themes</a>
+      <a href="#shop">Shop jars</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#shipping">Shipping</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
@@ -325,191 +179,246 @@
     <section class="hero" id="home">
       <div class="eyebrow">✧ A little mystery awaits ✧</div>
       <h1>For the <em>beautifully</em><br>mysterious.</h1>
-      <p>
-        Hidden treasures. Unexpected beauty. Every mystery jar holds
-        a little piece of magic, waiting to find its way to you.
-      </p>
-      <a class="button" href="#collection">Discover your treasure</a>
+      <p>Hidden treasures. Unexpected beauty. Every mystery jar holds a little piece of magic, waiting to find its way to you.</p>
+      <a class="button" href="#shop">Choose your treasure</a>
+    </section>
+
+    <section id="shop">
+      <div class="section-heading">
+        <h2>Choose Your Mystery Jar</h2>
+        <p>Select a size and a theme, then continue to checkout.</p>
+      </div>
+      <div class="size-grid">
+        <article class="panel size-card"><h3>Small Jar</h3><div class="price">$20</div><p class="muted">A petite surprise, perfect for a little everyday magic.</p></article>
+        <article class="panel size-card"><h3>Medium Jar</h3><div class="price">$45</div><p class="muted">A fuller collection of themed treasures to discover.</p></article>
+        <article class="panel size-card"><h3>Large Jar</h3><div class="price">$70</div><p class="muted">A grander assortment for a truly enchanting unboxing.</p></article>
+      </div>
+
+      <div class="selector-wrap">
+        <label for="jar-size">Jar size</label>
+        <select id="jar-size">
+          <option value="small">Small Jar — $20</option>
+          <option value="medium">Medium Jar — $45</option>
+          <option value="large">Large Jar — $70</option>
+        </select>
+        <label for="theme-select" style="margin-top:18px">Choose your theme</label>
+        <select id="theme-select"><option value="">Select a theme…</option></select>
+        <p class="selected-theme" id="selected-theme" aria-live="polite">Choose a theme to read its description.</p>
+        <div class="checkout-actions">
+          <a class="button" id="paypal-checkout" href="#" target="_blank" rel="noopener">Pay with PayPal</a>
+          <a class="button secondary" id="stripe-checkout" href="#" target="_blank" rel="noopener">Pay by card</a>
+        </div>
+        <p class="form-note">Checkout opens on the payment provider’s secure site. If checkout does not ask for your theme, include it in the order notes.</p>
+      </div>
     </section>
 
     <section id="collection">
-      <div class="section-heading">
-        <h2>The Mystery Jar Collection</h2>
-        <p>Choose a theme and discover the treasures inside.</p>
+      <div class="section-heading"><h2>The Mystery Jar Collection</h2><p>Every theme has its own little world of jewelry-inspired wonder.</p></div>
+      <div class="products" id="theme-cards"></div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="section-heading"><h2>How the Magic Works</h2><p>A few simple steps between you and your mystery.</p></div>
+      <div class="info-grid steps">
+        <article class="info-card step"><h3>Choose your jar</h3><p class="muted">Pick a size and select a theme.</p></article>
+        <article class="info-card step"><h3>Complete checkout</h3><p class="muted">Pay securely through PayPal or card checkout.</p></article>
+        <article class="info-card step"><h3>We prepare your surprise</h3><p class="muted">Your themed jar is gathered and packed with care.</p></article>
+        <article class="info-card step"><h3>Unwrap the wonder</h3><p class="muted">Open your jar and discover the treasures inside.</p></article>
       </div>
+    </section>
 
-      <div class="products">
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">☾</div>
-          <h3>Moonlit Magic</h3>
-          <p>A dreamy collection inspired by the night sky, with moon and star motifs, shimmering details, and pieces that feel made for a little midnight magic.</p>
-        </article>
+    <section id="shipping">
+      <div class="section-heading"><h2>Shipping & Returns</h2><p>Clear details help every mystery feel like a lovely surprise.</p></div>
+      <div class="info-grid">
+        <article class="info-card"><h3>Shipping</h3><p class="muted">Add your processing time, shipping methods, destinations, and shipping costs here before accepting orders.</p></article>
+        <article class="info-card"><h3>Returns & order issues</h3><p class="muted">Publish your return policy before launch. For damaged, missing, or incorrect items, email us so we can help.</p></article>
+      </div>
+    </section>
 
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🌹</div>
-          <h3>Gothic Romance</h3>
-          <p>A darkly romantic assortment featuring dramatic hearts, roses, and vintage-inspired details. Perfect for anyone who loves elegance with a mysterious edge.</p>
-        </article>
+    <section id="faq">
+      <div class="section-heading"><h2>Frequently Asked Questions</h2></div>
+      <details><summary>What comes inside a mystery jar?</summary><p>Each jar contains a surprise assortment inspired by the theme you choose. Exact pieces vary, which is part of the mystery.</p></details>
+      <details><summary>Can I choose the jewelry pieces?</summary><p>You choose the theme; the individual pieces are a surprise.</p></details>
+      <details><summary>How do I tell you which theme I want?</summary><p>Select your theme on this page. If checkout does not carry it through, include the theme in the order notes or email us after ordering.</p></details>
+      <details><summary>How long will my order take?</summary><p>Processing and shipping times will be posted in the Shipping & Returns section once finalized.</p></details>
+      <details><summary>What if my order arrives damaged or incorrect?</summary><p>Email us with your order details and a description of the issue so we can review it.</p></details>
+    </section>
 
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">✧</div>
-          <h3>Witch’s Trinkets</h3>
-          <p>A charming collection of mystical-inspired jewelry, with symbolic charms and enchanting details that bring a touch of witchy wonder to your everyday look.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🦋</div>
-          <h3>Fairy Garden</h3>
-          <p>Step into a tiny enchanted garden filled with delicate, whimsical pieces inspired by flowers, butterflies, and the magic of nature.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">📖</div>
-          <h3>Dark Academia</h3>
-          <p>Inspired by old libraries and forgotten stories, this jar features classic, antique-style details and a scholarly, timeless mood.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🗝</div>
-          <h3>Haunted Heirlooms</h3>
-          <p>A collection with the feel of treasures discovered in an old mansion: vintage-inspired designs, ornate details, and a hint of beautiful mystery.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">☀</div>
-          <h3>Celestial Treasure</h3>
-          <p>Explore jewelry inspired by the sun, moon, and stars, with cosmic details that bring a little wonder and sparkle to your collection.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🐚</div>
-          <h3>Mermaid’s Cache</h3>
-          <p>Dive into an ocean-inspired assortment featuring pearly shimmer, sea-themed details, and dreamy colors reminiscent of hidden treasures beneath the waves.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🪽</div>
-          <h3>Angel’s Keepsakes</h3>
-          <p>A soft, graceful collection inspired by wings, halos, and heavenly details. These delicate pieces bring a gentle, dreamy touch to any outfit.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🪶</div>
-          <h3>Raven’s Nest</h3>
-          <p>A mysterious assortment with dark, elegant details inspired by ravens, feathers, and moonlit skies—ideal for lovers of moody jewelry.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🍃</div>
-          <h3>Enchanted Forest</h3>
-          <p>Wander into a woodland-inspired collection with leafy details, earthy tones, and whimsical touches that feel like treasures gathered from a magical forest.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🩸</div>
-          <h3>Vampire’s Treasure</h3>
-          <p>Bold and romantic, this jar draws inspiration from velvet nights, deep reds, and gothic elegance for a dramatic look with a touch of mystery.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🥀</div>
-          <h3>Poison Garden</h3>
-          <p>A dark botanical collection inspired by unusual blooms, twisting vines, and deep green tones. Beautifully mysterious, with a hint of danger.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🦋</div>
-          <h3>Butterfly Transformation</h3>
-          <p>A delicate assortment inspired by butterflies and the beauty of change, with graceful details that feel light, dreamy, and full of possibility.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">♡</div>
-          <h3>Vintage Vanity</h3>
-          <p>A nostalgic collection inspired by heirloom jewelry and old-fashioned glamour, with classic details that feel elegant, timeless, and treasured.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">📜</div>
-          <h3>Lost Fairytale</h3>
-          <p>Imagine discovering a forgotten storybook filled with magical keepsakes. This jar features whimsical, fairytale-inspired details and a sense of wonder.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">♛</div>
-          <h3>Starlight Princess</h3>
-          <p>A sparkling collection with a royal, dreamy feel, inspired by crowns, shining stars, and the magic of a night-sky celebration.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🍂</div>
-          <h3>Autumn Spell</h3>
-          <p>Warm and cozy, this collection takes inspiration from falling leaves, amber hues, and crisp autumn evenings for a seasonal touch of enchantment.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🎭</div>
-          <h3>Midnight Masquerade</h3>
-          <p>A dramatic, elegant assortment inspired by mysterious masked balls, with striking details and a glamorous, midnight-dark mood.</p>
-        </article>
-
-        <article class="product">
-          <div class="jar-art" aria-hidden="true">🐈‍⬛</div>
-          <h3>Black Cat Charm</h3>
-          <p>A playful, witchy collection inspired by curious black cats, lucky charms, and magical mischief. A fun choice for anyone who loves a little feline mystery.</p>
-        </article>
+    <section id="contact">
+      <div class="section-heading"><h2>Send a Whisper</h2><p>Questions about a jar, an order, or a little mystery?</p></div>
+      <div class="contact-form">
+        <p class="muted" style="text-align:center">Email us at <a href="mailto:wingedwhispershop@gmail.com" style="color:var(--rose-light)">wingedwhispershop@gmail.com</a></p>
+        <form id="contact-form">
+          <label for="contact-name">Your name</label><input id="contact-name" name="name" autocomplete="name" required>
+          <label for="contact-email">Your email</label><input id="contact-email" name="email" type="email" autocomplete="email" required>
+          <label for="contact-message">Your message</label><textarea id="contact-message" name="message" required></textarea>
+          <div style="text-align:center;margin-top:18px"><button class="button" type="submit">Prepare email</button></div>
+          <p class="form-note">This opens your email app with your message ready to send; it does not submit information to this website.</p>
+        </form>
       </div>
     </section>
 
     <section id="story" class="story">
       <h2>A little story behind the mystery</h2>
-      <p>
-        Winged Whisper is a place for curious hearts and beautiful surprises.
-        Every mystery jar is prepared with care, bringing together unexpected
-        treasures for those who love a little magic in the everyday.
-      </p>
+      <p>Winged Whisper is a place for curious hearts and beautiful surprises. Every mystery jar is prepared with care, bringing together unexpected treasures for those who love a little magic in the everyday.</p>
+      <p>May every opening feel like finding a secret meant just for you. ✧</p>
     </section>
   </main>
 
   <footer>
-    © <span id="year"></span> Winged Whisper · A little mystery awaits
+    © <span id="year"></span> Winged Whisper · A little mystery awaits<br>
+    <a href="mailto:wingedwhispershop@gmail.com">wingedwhispershop@gmail.com</a>
   </footer>
 
   <script>
+    // Replace these six placeholders with your real hosted payment links.
+    const checkoutLinks = {
+      paypal: {
+        small: "https://YOUR-PAYPAL-SMALL-LINK",
+        medium: "https://YOUR-PAYPAL-MEDIUM-LINK",
+        large: "https://YOUR-PAYPAL-LARGE-LINK"
+      },
+      stripe: {
+        small: "https://YOUR-STRIPE-SMALL-LINK",
+        medium: "https://YOUR-STRIPE-MEDIUM-LINK",
+        large: "https://YOUR-STRIPE-LARGE-LINK"
+      }
+    };
+
+    const themes = [
+      ["Moonlit Magic","☾","A dreamy collection inspired by the night sky, with moon and star motifs, shimmering details, and pieces that feel made for a little midnight magic."],
+      ["Gothic Romance","🌹","A darkly romantic assortment featuring dramatic hearts, roses, and vintage-inspired details. Perfect for anyone who loves elegance with a mysterious edge."],
+      ["Witch’s Trinkets","✧","A charming collection of mystical-inspired jewelry, with symbolic charms and enchanting details that bring a touch of witchy wonder to your everyday look."],
+      ["Fairy Garden","🦋","Step into a tiny enchanted garden filled with delicate, whimsical pieces inspired by flowers, butterflies, and the magic of nature."],
+      ["Dark Academia","📖","Inspired by old libraries and forgotten stories, this jar features classic, antique-style details and a scholarly, timeless mood."],
+      ["Haunted Heirlooms","🗝","A collection with the feel of treasures discovered in an old mansion: vintage-inspired designs, ornate details, and a hint of beautiful mystery."],
+      ["Celestial Treasure","☀","Explore jewelry inspired by the sun, moon, and stars, with cosmic details that bring a little wonder and sparkle to your collection."],
+      ["Mermaid’s Cache","🐚","Dive into an ocean-inspired assortment featuring pearly shimmer, sea-themed details, and dreamy colors reminiscent of hidden treasures beneath the waves."],
+      ["Angel’s Keepsakes","🪽","A soft, graceful collection inspired by wings, halos, and heavenly details. These delicate pieces bring a gentle, dreamy touch to any outfit."],
+      ["Raven’s Nest","🪶","A mysterious assortment with dark, elegant details inspired by ravens, feathers, and moonlit skies—ideal for lovers of moody jewelry."],
+      ["Enchanted Forest","🍃","Wander into a woodland-inspired collection with leafy details, earthy tones, and whimsical touches that feel like treasures gathered from a magical forest."],
+      ["Vampire’s Treasure","🩸","Bold and romantic, this jar draws inspiration from velvet nights, deep reds, and gothic elegance for a dramatic look with a touch of mystery."],
+      ["Poison Garden","🥀","A dark botanical collection inspired by unusual blooms, twisting vines, and deep green tones. Beautifully mysterious, with a hint of danger."],
+      ["Butterfly Transformation","🦋","A delicate assortment inspired by butterflies and the beauty of change, with graceful details that feel light, dreamy, and full of possibility."],
+      ["Vintage Vanity","♡","A nostalgic collection inspired by heirloom jewelry and old-fashioned glamour, with classic details that feel elegant, timeless, and treasured."],
+      ["Lost Fairytale","📜","Imagine discovering a forgotten storybook filled with magical keepsakes. This jar features whimsical, fairytale-inspired details and a sense of wonder."],
+      ["Starlight Princess","♛","A sparkling collection with a royal, dreamy feel, inspired by crowns, shining stars, and the magic of a night-sky celebration."],
+      ["Autumn Spell","🍂","Warm and cozy, this collection takes inspiration from falling leaves, amber hues, and crisp autumn evenings for a seasonal touch of enchantment."],
+      ["Midnight Masquerade","🎭","A dramatic, elegant assortment inspired by mysterious masked balls, with striking details and a glamorous, midnight-dark mood."],
+      ["Black Cat Charm","🐈‍⬛","A playful, witchy collection inspired by curious black cats, lucky charms, and magical mischief. A fun choice for anyone who loves a little feline mystery."]
+    ];
+
+    const themeSelect = document.getElementById("theme-select");
+    const themeDescription = document.getElementById("selected-theme");
+    const jarSize = document.getElementById("jar-size");
+    const paypalButton = document.getElementById("paypal-checkout");
+    const stripeButton = document.getElementById("stripe-checkout");
+    const cards = document.getElementById("theme-cards");
+
+    themes.forEach(([name, icon, description]) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      themeSelect.appendChild(option);
+
+      const card = document.createElement("article");
+      card.className = "product";
+
+      const art = document.createElement("div");
+      art.className = "jar-art";
+      art.setAttribute("aria-hidden", "true");
+      art.textContent = icon;
+
+      const title = document.createElement("h3");
+      title.textContent = name;
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = description;
+
+      const button = document.createElement("button");
+      button.className = "button secondary";
+      button.type = "button";
+      button.textContent = "Choose this theme";
+      button.addEventListener("click", () => {
+        themeSelect.value = name;
+        updateTheme();
+        document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+      });
+
+      card.append(art, title, paragraph, button);
+      cards.appendChild(card);
+    });
+
+    function updateTheme() {
+      const selected = themes.find(theme => theme[0] === themeSelect.value);
+      themeDescription.textContent = selected
+        ? selected[2]
+        : "Choose a theme to read its description.";
+
+      const size = jarSize.value;
+      paypalButton.href = checkoutLinks.paypal[size];
+      stripeButton.href = checkoutLinks.stripe[size];
+
+      [paypalButton, stripeButton].forEach(button => {
+        const isPlaceholder = button.href.includes("YOUR-");
+        button.setAttribute("aria-disabled", String(isPlaceholder));
+        button.style.opacity = isPlaceholder ? ".65" : "1";
+        button.title = isPlaceholder
+          ? "Add your real payment link in the code before using checkout."
+          : "Continue to secure checkout";
+      });
+    }
+
+    themeSelect.addEventListener("change", updateTheme);
+    jarSize.addEventListener("change", updateTheme);
+
+    [paypalButton, stripeButton].forEach(button => {
+      button.addEventListener("click", event => {
+        if (button.href.includes("YOUR-")) {
+          event.preventDefault();
+          alert("Checkout is not connected yet. Add your real payment link in the checkoutLinks section of the code.");
+        }
+      });
+    });
+
+    document.getElementById("contact-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const name = document.getElementById("contact-name").value.trim();
+      const email = document.getElementById("contact-email").value.trim();
+      const message = document.getElementById("contact-message").value.trim();
+      const subject = encodeURIComponent("Winged Whisper inquiry");
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:wingedwhispershop@gmail.com?subject=${subject}&body=${body}`;
+    });
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const sparkleCursor = document.getElementById("sparkle-cursor");
     let lastTrailTime = 0;
 
-    document.addEventListener("mousemove", function(event) {
+    document.addEventListener("mousemove", event => {
       sparkleCursor.style.left = event.clientX + "px";
       sparkleCursor.style.top = event.clientY + "px";
 
       const now = Date.now();
-
       if (now - lastTrailTime > 65) {
         lastTrailTime = now;
-
         const trail = document.createElement("span");
         trail.className = "cursor-trail";
         trail.textContent = Math.random() > .5 ? "✧" : "·";
         trail.style.left = event.clientX + "px";
         trail.style.top = event.clientY + "px";
         document.body.appendChild(trail);
-
         setTimeout(() => trail.remove(), 700);
       }
     });
 
-    document.querySelectorAll("a, button").forEach(function(item) {
-      item.addEventListener("mouseenter", function() {
-        sparkleCursor.classList.add("is-hovering");
-      });
-
-      item.addEventListener("mouseleave", function() {
-        sparkleCursor.classList.remove("is-hovering");
-      });
+    document.querySelectorAll("a,button").forEach(item => {
+      item.addEventListener("mouseenter", () => sparkleCursor.classList.add("is-hovering"));
+      item.addEventListener("mouseleave", () => sparkleCursor.classList.remove("is-hovering"));
     });
+
+    updateTheme();
   </script>
 </body>
 </html>

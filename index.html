@@ -7,21 +7,15 @@
 
   <style>
     :root {
-      --black: #050405;
-      --burgundy: #4b1028;
       --rose: #c78da9;
       --ivory: #f6edf2;
       --muted: #cbbbc4;
       --line: rgba(231, 190, 211, 0.25);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -46,7 +40,7 @@
     }
 
     .stars {
-      opacity: 0.55;
+      opacity: .55;
       background-image:
         radial-gradient(2px 2px at 8% 18%, #fff 50%, transparent 100%),
         radial-gradient(1.5px 1.5px at 24% 72%, #e9b8d0 50%, transparent 100%),
@@ -59,7 +53,7 @@
     }
 
     .stars::before {
-      opacity: 0.6;
+      opacity: .6;
       background-image:
         radial-gradient(1.5px 1.5px at 15% 45%, #fff 50%, transparent 100%),
         radial-gradient(2px 2px at 38% 12%, #e9b8d0 50%, transparent 100%),
@@ -70,7 +64,7 @@
     }
 
     .stars::after {
-      opacity: 0.35;
+      opacity: .35;
       background-image:
         radial-gradient(2px 2px at 30% 25%, #fff 50%, transparent 100%),
         radial-gradient(1px 1px at 58% 60%, #e9b8d0 50%, transparent 100%),
@@ -80,11 +74,11 @@
     }
 
     @keyframes twinkle {
-      from { opacity: 0.18; }
-      to { opacity: 0.75; }
+      from { opacity: .18; }
+      to { opacity: .75; }
     }
 
-    /* Custom sparkle-star cursor */
+    /* Custom sparkle-star cursor and trail */
     .sparkle-cursor {
       position: fixed;
       left: 0;
@@ -96,7 +90,6 @@
       line-height: 1;
       text-shadow: 0 0 8px #e6a6c9, 0 0 18px #bd6d9c;
       transform: translate(-50%, -50%);
-      transition: color 0.15s, text-shadow 0.15s;
     }
 
     .sparkle-cursor.is-hovering {
@@ -104,7 +97,6 @@
       text-shadow: 0 0 12px #fff, 0 0 25px #e6a6c9;
     }
 
-    /* Small sparkles left behind by the cursor */
     .cursor-trail {
       position: fixed;
       z-index: 9998;
@@ -116,19 +108,11 @@
     }
 
     @keyframes sparkle-fade {
-      0% {
-        opacity: 0.9;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -90%) scale(0.2);
-      }
+      0% { opacity: .9; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -90%) scale(.2); }
     }
 
-    header,
-    main,
-    footer {
+    header, main, footer {
       position: relative;
       z-index: 1;
     }
@@ -136,7 +120,7 @@
     header {
       text-align: center;
       border-bottom: 1px solid var(--line);
-      background: rgba(4, 3, 5, 0.78);
+      background: rgba(4, 3, 5, .78);
       padding: 14px 20px 18px;
     }
 
@@ -172,9 +156,7 @@
       cursor: none;
     }
 
-    nav a:hover {
-      color: var(--rose);
-    }
+    nav a:hover { color: var(--rose); }
 
     .hero {
       max-width: 900px;
@@ -197,9 +179,7 @@
       font-weight: normal;
     }
 
-    .hero h1 em {
-      color: var(--rose);
-    }
+    .hero h1 em { color: var(--rose); }
 
     .hero p {
       max-width: 650px;
@@ -221,7 +201,7 @@
       font-size: 13px;
       cursor: none;
       font-family: inherit;
-      transition: background 0.2s, transform 0.2s;
+      transition: background .2s, transform .2s;
     }
 
     .button:hover {
@@ -246,10 +226,7 @@
       font-weight: normal;
     }
 
-    .section-heading p {
-      margin: 0;
-      color: var(--muted);
-    }
+    .section-heading p { color: var(--muted); }
 
     .products {
       display: grid;
@@ -261,8 +238,8 @@
       padding: 22px;
       text-align: center;
       border: 1px solid var(--line);
-      background: rgba(10, 5, 9, 0.76);
-      transition: transform 0.2s, border-color 0.2s;
+      background: rgba(10, 5, 9, .76);
+      transition: transform .2s, border-color .2s;
     }
 
     .product:hover {
@@ -276,7 +253,7 @@
       min-height: 150px;
       margin-bottom: 18px;
       font-size: 72px;
-      background: radial-gradient(circle, rgba(199, 141, 169, 0.17), transparent 70%);
+      background: radial-gradient(circle, rgba(199, 141, 169, .17), transparent 70%);
     }
 
     .product h3 {
@@ -320,35 +297,19 @@
       text-align: center;
       border-top: 1px solid var(--line);
       color: var(--muted);
-      background: rgba(4, 3, 5, 0.65);
+      background: rgba(4, 3, 5, .65);
       font-size: 13px;
     }
 
-    /* Use a normal cursor on touch devices */
     @media (hover: none), (pointer: coarse) {
-      body,
-      nav a,
-      .button {
-        cursor: auto;
-      }
-
-      .sparkle-cursor {
-        display: none;
-      }
+      body, nav a, .button { cursor: auto; }
+      .sparkle-cursor { display: none; }
     }
 
     @media (max-width: 600px) {
-      .hero {
-        padding-top: 65px;
-      }
-
-      nav {
-        gap: 15px;
-      }
-
-      nav a {
-        font-size: 11px;
-      }
+      .hero { padding-top: 65px; }
+      nav { gap: 15px; }
+      nav a { font-size: 11px; }
     }
   </style>
 </head>
@@ -447,7 +408,7 @@
 
     function addToCart(name, price) {
       cart.push({ name, price });
-      cartCount += 1;
+      cartCount++;
       document.getElementById("cart-count").textContent = cartCount;
 
       const total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -461,7 +422,6 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* Move the sparkle cursor and leave a little twinkle trail */
     const sparkleCursor = document.getElementById("sparkle-cursor");
     let lastTrailTime = 0;
 
@@ -470,12 +430,13 @@
       sparkleCursor.style.top = event.clientY + "px";
 
       const now = Date.now();
+
       if (now - lastTrailTime > 65) {
         lastTrailTime = now;
 
         const trail = document.createElement("span");
         trail.className = "cursor-trail";
-        trail.textContent = Math.random() > 0.5 ? "✧" : "·";
+        trail.textContent = Math.random() > .5 ? "✧" : "·";
         trail.style.left = event.clientX + "px";
         trail.style.top = event.clientY + "px";
         document.body.appendChild(trail);

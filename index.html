@@ -28,7 +28,6 @@
       cursor: none;
     }
 
-    /* Twinkling background stars */
     .stars,
     .stars::before,
     .stars::after {
@@ -78,7 +77,6 @@
       to { opacity: .75; }
     }
 
-    /* Custom sparkle-star cursor and trail */
     .sparkle-cursor {
       position: fixed;
       left: 0;
@@ -250,9 +248,9 @@
     .jar-art {
       display: grid;
       place-items: center;
-      min-height: 150px;
+      min-height: 100px;
       margin-bottom: 18px;
-      font-size: 72px;
+      font-size: 58px;
       background: radial-gradient(circle, rgba(199, 141, 169, .17), transparent 70%);
     }
 
@@ -263,21 +261,9 @@
     }
 
     .product p {
-      min-height: 42px;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.6;
       font-size: 14px;
-    }
-
-    .price {
-      margin: 16px 0;
-      color: var(--rose);
-      font-size: 22px;
-    }
-
-    .product .button {
-      width: 100%;
-      padding: 12px 10px;
     }
 
     .story {
@@ -332,7 +318,6 @@
       <a href="#home">Home</a>
       <a href="#collection">The Collection</a>
       <a href="#story">Our Story</a>
-      <a href="#collection">Cart (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
@@ -350,40 +335,128 @@
     <section id="collection">
       <div class="section-heading">
         <h2>The Mystery Jar Collection</h2>
-        <p>Each jar is a little secret waiting to be uncovered.</p>
+        <p>Choose a theme and discover the treasures inside.</p>
       </div>
 
       <div class="products">
         <article class="product">
-          <div class="jar-art" aria-hidden="true">✧</div>
-          <h3>Whispering Trinkets</h3>
-          <p>A petite collection of mysterious jewelry treasures.</p>
-          <div class="price">$18.00</div>
-          <button class="button" onclick="addToCart('Whispering Trinkets', 18)">Add to cart</button>
+          <div class="jar-art" aria-hidden="true">☾</div>
+          <h3>Moonlit Magic</h3>
+          <p>A dreamy collection inspired by the night sky, with moon and star motifs, shimmering details, and pieces that feel made for a little midnight magic.</p>
         </article>
 
         <article class="product">
-          <div class="jar-art" aria-hidden="true">☾</div>
-          <h3>Moonlit Mysteries</h3>
-          <p>Moon-inspired pieces with a touch of midnight magic.</p>
-          <div class="price">$24.00</div>
-          <button class="button" onclick="addToCart('Moonlit Mysteries', 24)">Add to cart</button>
+          <div class="jar-art" aria-hidden="true">🌹</div>
+          <h3>Gothic Romance</h3>
+          <p>A darkly romantic assortment featuring dramatic hearts, roses, and vintage-inspired details. Perfect for anyone who loves elegance with a mysterious edge.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">✧</div>
+          <h3>Witch’s Trinkets</h3>
+          <p>A charming collection of mystical-inspired jewelry, with symbolic charms and enchanting details that bring a touch of witchy wonder to your everyday look.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🦋</div>
+          <h3>Fairy Garden</h3>
+          <p>Step into a tiny enchanted garden filled with delicate, whimsical pieces inspired by flowers, butterflies, and the magic of nature.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">📖</div>
+          <h3>Dark Academia</h3>
+          <p>Inspired by old libraries and forgotten stories, this jar features classic, antique-style details and a scholarly, timeless mood.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🗝</div>
+          <h3>Haunted Heirlooms</h3>
+          <p>A collection with the feel of treasures discovered in an old mansion: vintage-inspired designs, ornate details, and a hint of beautiful mystery.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">☀</div>
+          <h3>Celestial Treasure</h3>
+          <p>Explore jewelry inspired by the sun, moon, and stars, with cosmic details that bring a little wonder and sparkle to your collection.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🐚</div>
+          <h3>Mermaid’s Cache</h3>
+          <p>Dive into an ocean-inspired assortment featuring pearly shimmer, sea-themed details, and dreamy colors reminiscent of hidden treasures beneath the waves.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🪽</div>
+          <h3>Angel’s Keepsakes</h3>
+          <p>A soft, graceful collection inspired by wings, halos, and heavenly details. These delicate pieces bring a gentle, dreamy touch to any outfit.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🪶</div>
+          <h3>Raven’s Nest</h3>
+          <p>A mysterious assortment with dark, elegant details inspired by ravens, feathers, and moonlit skies—ideal for lovers of moody jewelry.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🍃</div>
+          <h3>Enchanted Forest</h3>
+          <p>Wander into a woodland-inspired collection with leafy details, earthy tones, and whimsical touches that feel like treasures gathered from a magical forest.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🩸</div>
+          <h3>Vampire’s Treasure</h3>
+          <p>Bold and romantic, this jar draws inspiration from velvet nights, deep reds, and gothic elegance for a dramatic look with a touch of mystery.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🥀</div>
+          <h3>Poison Garden</h3>
+          <p>A dark botanical collection inspired by unusual blooms, twisting vines, and deep green tones. Beautifully mysterious, with a hint of danger.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🦋</div>
+          <h3>Butterfly Transformation</h3>
+          <p>A delicate assortment inspired by butterflies and the beauty of change, with graceful details that feel light, dreamy, and full of possibility.</p>
         </article>
 
         <article class="product">
           <div class="jar-art" aria-hidden="true">♡</div>
-          <h3>Secret Romance</h3>
-          <p>Romantic, delicate surprises with a gothic twist.</p>
-          <div class="price">$29.00</div>
-          <button class="button" onclick="addToCart('Secret Romance', 29)">Add to cart</button>
+          <h3>Vintage Vanity</h3>
+          <p>A nostalgic collection inspired by heirloom jewelry and old-fashioned glamour, with classic details that feel elegant, timeless, and treasured.</p>
         </article>
 
         <article class="product">
-          <div class="jar-art" aria-hidden="true">✦</div>
-          <h3>Midnight Treasure</h3>
-          <p>A larger mystery jar filled with enchanting finds.</p>
-          <div class="price">$38.00</div>
-          <button class="button" onclick="addToCart('Midnight Treasure', 38)">Add to cart</button>
+          <div class="jar-art" aria-hidden="true">📜</div>
+          <h3>Lost Fairytale</h3>
+          <p>Imagine discovering a forgotten storybook filled with magical keepsakes. This jar features whimsical, fairytale-inspired details and a sense of wonder.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">♛</div>
+          <h3>Starlight Princess</h3>
+          <p>A sparkling collection with a royal, dreamy feel, inspired by crowns, shining stars, and the magic of a night-sky celebration.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🍂</div>
+          <h3>Autumn Spell</h3>
+          <p>Warm and cozy, this collection takes inspiration from falling leaves, amber hues, and crisp autumn evenings for a seasonal touch of enchantment.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🎭</div>
+          <h3>Midnight Masquerade</h3>
+          <p>A dramatic, elegant assortment inspired by mysterious masked balls, with striking details and a glamorous, midnight-dark mood.</p>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">🐈‍⬛</div>
+          <h3>Black Cat Charm</h3>
+          <p>A playful, witchy collection inspired by curious black cats, lucky charms, and magical mischief. A fun choice for anyone who loves a little feline mystery.</p>
         </article>
       </div>
     </section>
@@ -403,23 +476,6 @@
   </footer>
 
   <script>
-    let cartCount = 0;
-    const cart = [];
-
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      cartCount++;
-      document.getElementById("cart-count").textContent = cartCount;
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-
-      alert(
-        name + " was added to your cart.\n" +
-        "Cart items: " + cartCount + "\n" +
-        "Cart total: $" + total.toFixed(2)
-      );
-    }
-
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const sparkleCursor = document.getElementById("sparkle-cursor");

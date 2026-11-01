@@ -351,10 +351,9 @@
         : "Choose a theme to read its description.";
 
       const size = jarSize.value;
-      paypalButton.href = checkoutLinks.paypal[size];
       stripeButton.href = checkoutLinks.stripe[size];
 
-      [paypalButton, stripeButton].forEach(button => {
+      [stripeButton].forEach(button => {
         const isPlaceholder = button.href.includes("YOUR-");
         button.setAttribute("aria-disabled", String(isPlaceholder));
         button.style.opacity = isPlaceholder ? ".65" : "1";
@@ -367,7 +366,7 @@
     themeSelect.addEventListener("change", updateTheme);
     jarSize.addEventListener("change", updateTheme);
 
-    [paypalButton, stripeButton].forEach(button => {
+    [stripeButton].forEach(button => {
       button.addEventListener("click", event => {
         if (button.href.includes("YOUR-")) {
           event.preventDefault();

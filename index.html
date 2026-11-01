@@ -1,15 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Winged Whisper | Mystery Jewelry</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <title>Winged Whisper | Mystery Jewelry Jars</title>
 
   <style>
+    :root {
+      --black: #050405;
+      --burgundy: #4b1028;
+      --rose: #c78da9;
+      --ivory: #f6edf2;
+      --muted: #cbbbc4;
+      --line: rgba(231, 190, 211, 0.25);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -20,520 +25,474 @@
 
     body {
       margin: 0;
-      background: #050505;
-      color: #f5edf1;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px;
+      min-height: 100vh;
       overflow-x: hidden;
+      color: var(--ivory);
+      font-family: Georgia, "Times New Roman", serif;
+      background: linear-gradient(135deg, #050505 0%, #16070d 55%, #4b1028 100%);
+      background-attachment: fixed;
+      cursor: none;
     }
 
-    /* Moving stars */
-    #stars {
+    /* Twinkling background stars */
+    .stars,
+    .stars::before,
+    .stars::after {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      content: "";
       pointer-events: none;
-      overflow: hidden;
+      z-index: 0;
     }
 
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--duration) ease-in-out infinite alternate,
-                 drift var(--drift) linear infinite;
+    .stars {
+      opacity: 0.55;
+      background-image:
+        radial-gradient(2px 2px at 8% 18%, #fff 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 24% 72%, #e9b8d0 50%, transparent 100%),
+        radial-gradient(2px 2px at 48% 34%, #fff 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 72% 16%, #e9b8d0 50%, transparent 100%),
+        radial-gradient(2px 2px at 88% 65%, #fff 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 62% 88%, #e9b8d0 50%, transparent 100%);
+      background-size: 420px 360px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    .stars::before {
+      opacity: 0.6;
+      background-image:
+        radial-gradient(1.5px 1.5px at 15% 45%, #fff 50%, transparent 100%),
+        radial-gradient(2px 2px at 38% 12%, #e9b8d0 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 79% 42%, #fff 50%, transparent 100%),
+        radial-gradient(2px 2px at 93% 90%, #e9b8d0 50%, transparent 100%);
+      background-size: 510px 430px;
+      animation: twinkle 6s ease-in-out infinite alternate-reverse;
+    }
+
+    .stars::after {
+      opacity: 0.35;
+      background-image:
+        radial-gradient(2px 2px at 30% 25%, #fff 50%, transparent 100%),
+        radial-gradient(1px 1px at 58% 60%, #e9b8d0 50%, transparent 100%),
+        radial-gradient(2px 2px at 84% 30%, #fff 50%, transparent 100%);
+      background-size: 600px 500px;
+      animation: twinkle 3s ease-in-out infinite alternate;
     }
 
     @keyframes twinkle {
-      from { opacity: 0.15; transform: scale(0.7); }
-      to { opacity: 0.9; transform: scale(1.3); }
+      from { opacity: 0.18; }
+      to { opacity: 0.75; }
     }
 
-    @keyframes drift {
-      from { translate: 0 0; }
-      to { translate: 25px -45px; }
-    }
-
-    /* Custom cursor */
-    .cursor {
+    /* Custom sparkle-star cursor */
+    .sparkle-cursor {
       position: fixed;
-      width: 22px;
-      height: 22px;
-      pointer-events: none;
+      left: 0;
+      top: 0;
       z-index: 9999;
-      color: #e7d4df;
-      font-size: 23px;
-      line-height: 22px;
+      pointer-events: none;
+      color: #f6d7e8;
+      font-size: 27px;
+      line-height: 1;
+      text-shadow: 0 0 8px #e6a6c9, 0 0 18px #bd6d9c;
       transform: translate(-50%, -50%);
-      display: none;
+      transition: color 0.15s, text-shadow 0.15s;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      body, button, a {
-        cursor: none;
-      }
+    .sparkle-cursor.is-hovering {
+      color: white;
+      text-shadow: 0 0 12px #fff, 0 0 25px #e6a6c9;
+    }
 
-      .cursor {
-        display: block;
+    /* Small sparkles left behind by the cursor */
+    .cursor-trail {
+      position: fixed;
+      z-index: 9998;
+      pointer-events: none;
+      color: #e6a6c9;
+      font-size: 12px;
+      line-height: 1;
+      animation: sparkle-fade 700ms ease-out forwards;
+    }
+
+    @keyframes sparkle-fade {
+      0% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -90%) scale(0.2);
       }
     }
 
-    /* Header and banner */
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
     header {
-      background: #000;
       text-align: center;
-      border-bottom: 1px solid #50303f;
+      border-bottom: 1px solid var(--line);
+      background: rgba(4, 3, 5, 0.78);
+      padding: 14px 20px 18px;
     }
 
     .banner {
       display: block;
-      width: 100%;
-      height: auto;
+      width: min(100%, 760px);
+      max-height: 180px;
+      object-fit: contain;
+      margin: 0 auto 12px;
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: 28px;
+      font-weight: normal;
+      letter-spacing: 3px;
     }
 
     nav {
       display: flex;
       justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
-      gap: 35px;
-      padding: 20px;
+      gap: 28px;
+      margin-top: 18px;
     }
 
     nav a {
-      color: #e8dce3;
+      color: var(--ivory);
       text-decoration: none;
-      font-size: 16px;
-      letter-spacing: 3px;
-      transition: color 0.3s;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: none;
     }
 
     nav a:hover {
-      color: #c78ba9;
+      color: var(--rose);
     }
 
-    /* Welcome section */
     .hero {
-      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 90px 20px 75px;
       text-align: center;
-      padding: 120px 20px 140px;
-      background: radial-gradient(ellipse at center, #25131e 0%, #0a080a 65%, #050505 100%);
-    }
-
-    .ornament {
-      color: #b98ba3;
-      letter-spacing: 8px;
-      font-size: 22px;
     }
 
     .eyebrow {
-      color: #c49aae;
-      letter-spacing: 5px;
+      color: var(--rose);
+      letter-spacing: 4px;
       text-transform: uppercase;
-      font-size: 14px;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-      font-weight: 500;
+      font-size: 13px;
     }
 
     .hero h1 {
-      font-size: clamp(40px, 7vw, 76px);
-      line-height: 1.15;
-      margin: 25px 0;
+      margin: 24px 0;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1.05;
+      font-weight: normal;
     }
 
-    .hero h1 span {
-      color: #c99ab3;
-      font-style: italic;
+    .hero h1 em {
+      color: var(--rose);
     }
 
     .hero p {
-      max-width: 600px;
-      margin: 0 auto 35px;
-      color: #c9bac2;
-      line-height: 1.8;
-      font-size: 22px;
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.7;
     }
 
     .button {
       display: inline-block;
-      padding: 16px 35px;
-      background: #6b304a;
-      border: 1px solid #c99ab3;
-      color: white;
+      border: 1px solid var(--rose);
+      background: #64283f;
+      color: var(--ivory);
+      padding: 15px 28px;
       text-decoration: none;
       letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 13px;
+      cursor: none;
       font-family: inherit;
-      font-size: 18px;
-      transition: all 0.3s;
+      transition: background 0.2s, transform 0.2s;
     }
 
     .button:hover {
-      background: #914a69;
-      box-shadow: 0 0 25px #9a527055;
+      background: #803b59;
+      transform: translateY(-2px);
     }
 
-    /* Jewelry collection */
-    .collection {
-      padding: 90px 25px;
+    section {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 45px 20px 70px;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
       text-align: center;
     }
 
-    .collection h2,
-    .about h2,
-    .cart h2 {
-      font-size: clamp(32px, 5vw, 48px);
-      margin: 20px 0;
+    .section-heading h2 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      font-weight: normal;
     }
 
-    .product-grid {
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-      max-width: 1050px;
-      margin: 55px auto 0;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
     }
 
     .product {
-      padding: 35px 25px;
-      background: linear-gradient(145deg, #1a1118, #090709);
-      border: 1px solid #50303f;
-      transition: transform 0.3s, border-color 0.3s;
+      padding: 22px;
+      text-align: center;
+      border: 1px solid var(--line);
+      background: rgba(10, 5, 9, 0.76);
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .product:hover {
-      transform: translateY(-6px);
-      border-color: #c99ab3;
+      transform: translateY(-5px);
+      border-color: var(--rose);
     }
 
-    .jar {
-      width: 110px;
-      height: 130px;
-      margin: 0 auto 25px;
-      border: 2px solid #bba5b1;
-      border-radius: 25px 25px 18px 18px;
-      background: linear-gradient(135deg, #392332, #100b10);
+    .jar-art {
       display: grid;
       place-items: center;
-      font-size: 48px;
-      box-shadow: inset 0 0 20px #000;
+      min-height: 150px;
+      margin-bottom: 18px;
+      font-size: 72px;
+      background: radial-gradient(circle, rgba(199, 141, 169, 0.17), transparent 70%);
     }
 
     .product h3 {
-      font-size: 25px;
-      color: #e2c7d5;
+      margin: 8px 0;
+      font-size: 21px;
+      font-weight: normal;
     }
 
     .product p {
-      color: #bcaab4;
-      line-height: 1.6;
+      min-height: 42px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
     }
 
     .price {
-      display: block;
-      color: #d8a8bd;
-      font-size: 28px;
-      margin: 20px;
+      margin: 16px 0;
+      color: var(--rose);
+      font-size: 22px;
     }
 
-    button {
-      background: #6b304a;
-      border: 1px solid #b98ba3;
-      color: white;
-      padding: 12px 24px;
-      font-family: inherit;
-      font-size: 18px;
-      transition: background 0.3s;
+    .product .button {
+      width: 100%;
+      padding: 12px 10px;
     }
 
-    button:hover {
-      background: #914a69;
-    }
-
-    /* About section */
-    .about {
+    .story {
+      max-width: 760px;
       text-align: center;
-      padding: 90px 25px;
-      background: #100b10;
-      border-top: 1px solid #50303f;
-      border-bottom: 1px solid #50303f;
+      line-height: 1.8;
+      color: var(--muted);
     }
 
-    .about p {
-      max-width: 650px;
-      margin: 25px auto;
-      line-height: 1.9;
-      color: #c9bac2;
-      font-size: 21px;
-    }
-
-    /* Shopping cart */
-    .cart {
-      max-width: 750px;
-      margin: 0 auto;
-      padding: 80px 25px;
-      text-align: center;
-    }
-
-    .cart-items {
-      list-style: none;
-      padding: 0;
-      margin: 30px 0;
-    }
-
-    .cart-items li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding: 15px 0;
-      border-bottom: 1px solid #38232f;
-    }
-
-    .cart-items button {
-      padding: 5px 12px;
-      font-size: 15px;
-    }
-
-    .cart-total {
-      color: #d8a8bd;
-      font-size: 27px;
+    .story h2 {
+      color: var(--ivory);
+      font-weight: normal;
     }
 
     footer {
-      padding: 35px;
+      padding: 28px 20px;
       text-align: center;
-      background: #000;
-      border-top: 1px solid #50303f;
-      color: #a88a9a;
-      letter-spacing: 3px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(4, 3, 5, 0.65);
+      font-size: 13px;
+    }
+
+    /* Use a normal cursor on touch devices */
+    @media (hover: none), (pointer: coarse) {
+      body,
+      nav a,
+      .button {
+        cursor: auto;
+      }
+
+      .sparkle-cursor {
+        display: none;
+      }
     }
 
     @media (max-width: 600px) {
+      .hero {
+        padding-top: 65px;
+      }
+
       nav {
-        gap: 18px;
+        gap: 15px;
       }
 
       nav a {
-        font-size: 13px;
-        letter-spacing: 1px;
-      }
-
-      .hero {
-        padding: 80px 20px;
-      }
-
-      .cart-items li {
-        flex-wrap: wrap;
+        font-size: 11px;
       }
     }
   </style>
 </head>
 
 <body>
-
-  <div id="stars"></div>
-  <div class="cursor" id="cursor">✦</div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="sparkle-cursor" id="sparkle-cursor" aria-hidden="true">✦</div>
 
   <header>
     <img
+      class="banner"
       src="wingedwhisperbanner.jpg"
       alt="Winged Whisper"
-      class="banner"
+      onerror="this.style.display='none'"
     >
 
+    <p class="brand-name">Winged Whisper</p>
+
     <nav>
-      <a href="#home">HOME</a>
-      <a href="#collection">THE COLLECTION</a>
-      <a href="#about">OUR STORY</a>
-      <a href="#cart">CART (<span id="cart-count">0</span>)</a>
+      <a href="#home">Home</a>
+      <a href="#collection">The Collection</a>
+      <a href="#story">Our Story</a>
+      <a href="#collection">Cart (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="home">
-      <div class="ornament">✧ ───── ❦ ───── ✧</div>
-      <p class="eyebrow">A LITTLE MYSTERY AWAITS</p>
-
-      <h1>For the <span>beautifully</span><br> mysterious.</h1>
-
+      <div class="eyebrow">✧ A little mystery awaits ✧</div>
+      <h1>For the <em>beautifully</em><br>mysterious.</h1>
       <p>
-        Hidden treasures. Unexpected beauty.
-        Every mystery jar holds a little piece of magic,
-        waiting to find its way to you.
+        Hidden treasures. Unexpected beauty. Every mystery jar holds
+        a little piece of magic, waiting to find its way to you.
       </p>
+      <a class="button" href="#collection">Discover your treasure</a>
+    </section>
 
-      <a href="#collection" class="button">DISCOVER YOUR TREASURE</a>
+    <section id="collection">
+      <div class="section-heading">
+        <h2>The Mystery Jar Collection</h2>
+        <p>Each jar is a little secret waiting to be uncovered.</p>
+      </div>
 
-      <div class="ornament" style="margin-top:45px;">
-        ✧ ───── ❦ ───── ✧
+      <div class="products">
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">✧</div>
+          <h3>Whispering Trinkets</h3>
+          <p>A petite collection of mysterious jewelry treasures.</p>
+          <div class="price">$18.00</div>
+          <button class="button" onclick="addToCart('Whispering Trinkets', 18)">Add to cart</button>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">☾</div>
+          <h3>Moonlit Mysteries</h3>
+          <p>Moon-inspired pieces with a touch of midnight magic.</p>
+          <div class="price">$24.00</div>
+          <button class="button" onclick="addToCart('Moonlit Mysteries', 24)">Add to cart</button>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">♡</div>
+          <h3>Secret Romance</h3>
+          <p>Romantic, delicate surprises with a gothic twist.</p>
+          <div class="price">$29.00</div>
+          <button class="button" onclick="addToCart('Secret Romance', 29)">Add to cart</button>
+        </article>
+
+        <article class="product">
+          <div class="jar-art" aria-hidden="true">✦</div>
+          <h3>Midnight Treasure</h3>
+          <p>A larger mystery jar filled with enchanting finds.</p>
+          <div class="price">$38.00</div>
+          <button class="button" onclick="addToCart('Midnight Treasure', 38)">Add to cart</button>
+        </article>
       </div>
     </section>
 
-    <section class="collection" id="collection">
-      <p class="eyebrow">THE MYSTERY COLLECTION</p>
-      <h2>Choose Your Mystery</h2>
-
-      <div class="product-grid">
-
-        <article class="product">
-          <div class="jar">☽</div>
-          <h3>The Little Haunting</h3>
-          <p>A little mystery for your everyday look.</p>
-          <span class="price">$12.00</span>
-          <button onclick="addToCart(1)">Add to Cart</button>
-        </article>
-
-        <article class="product">
-          <div class="jar">✧</div>
-          <h3>The Midnight Jar</h3>
-          <p>A collection of dark, romantic treasures.</p>
-          <span class="price">$25.00</span>
-          <button onclick="addToCart(2)">Add to Cart</button>
-        </article>
-
-        <article class="product">
-          <div class="jar">❦</div>
-          <h3>The Witching Hour</h3>
-          <p>A larger collection of enchanting surprises.</p>
-          <span class="price">$40.00</span>
-          <button onclick="addToCart(3)">Add to Cart</button>
-        </article>
-
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <div class="ornament">✧ ❦ ✧</div>
-      <p class="eyebrow">OUR STORY</p>
-      <h2>A Little Darkness. A Lot of Wonder.</h2>
-
+    <section id="story" class="story">
+      <h2>A little story behind the mystery</h2>
       <p>
-        Winged Whisper is a place for those who find beauty
-        in the mysterious. Each jar is filled with surprise
-        jewelry and a little piece of magic.
+        Winged Whisper is a place for curious hearts and beautiful surprises.
+        Every mystery jar is prepared with care, bringing together unexpected
+        treasures for those who love a little magic in the everyday.
       </p>
-    </section>
-
-    <section class="cart" id="cart">
-      <p class="eyebrow">YOUR TREASURES</p>
-      <h2>Your Shopping Cart</h2>
-
-      <ul class="cart-items" id="cart-items">
-        <li>Your cart is waiting for a little mystery.</li>
-      </ul>
-
-      <p class="cart-total">
-        Total: $<span id="cart-total">0.00</span>
-      </p>
-
-      <button onclick="clearCart()">Clear Cart</button>
-      <button onclick="checkout()">Checkout</button>
     </section>
   </main>
 
   <footer>
-    <p>WINGED WHISPER</p>
-    <p>✧ Made for the beautifully mysterious ✧</p>
+    © <span id="year"></span> Winged Whisper · A little mystery awaits
   </footer>
 
   <script>
-    // Create moving sparkles
-    const stars = document.getElementById('stars');
+    let cartCount = 0;
+    const cart = [];
 
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      cartCount += 1;
+      document.getElementById("cart-count").textContent = cartCount;
 
-      const size = Math.random() * 3 + 1;
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
 
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-      star.style.setProperty('--drift', (Math.random() * 20 + 15) + 's');
-
-      stars.appendChild(star);
+      alert(
+        name + " was added to your cart.\n" +
+        "Cart items: " + cartCount + "\n" +
+        "Cart total: $" + total.toFixed(2)
+      );
     }
 
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    document.addEventListener('mousemove', (event) => {
-      cursor.style.left = event.clientX + 'px';
-      cursor.style.top = event.clientY + 'px';
+    /* Move the sparkle cursor and leave a little twinkle trail */
+    const sparkleCursor = document.getElementById("sparkle-cursor");
+    let lastTrailTime = 0;
+
+    document.addEventListener("mousemove", function(event) {
+      sparkleCursor.style.left = event.clientX + "px";
+      sparkleCursor.style.top = event.clientY + "px";
+
+      const now = Date.now();
+      if (now - lastTrailTime > 65) {
+        lastTrailTime = now;
+
+        const trail = document.createElement("span");
+        trail.className = "cursor-trail";
+        trail.textContent = Math.random() > 0.5 ? "✧" : "·";
+        trail.style.left = event.clientX + "px";
+        trail.style.top = event.clientY + "px";
+        document.body.appendChild(trail);
+
+        setTimeout(() => trail.remove(), 700);
+      }
     });
 
-    // Shopping cart
-    const products = {
-      1: { name: 'The Little Haunting', price: 12 },
-      2: { name: 'The Midnight Jar', price: 25 },
-      3: { name: 'The Witching Hour', price: 40 }
-    };
-
-    let cart = [];
-
-    function addToCart(id) {
-      cart.push(products[id]);
-      updateCart();
-
-      document.getElementById('cart-count').textContent = cart.length;
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-
-      document.getElementById('cart-count').textContent = cart.length;
-    }
-
-    function clearCart() {
-      cart = [];
-      updateCart();
-
-      document.getElementById('cart-count').textContent = 0;
-    }
-
-    function updateCart() {
-      const list = document.getElementById('cart-items');
-      const total = document.getElementById('cart-total');
-
-      list.innerHTML = '';
-
-      if (cart.length === 0) {
-        list.innerHTML = '<li>Your cart is waiting for a little mystery.</li>';
-      }
-
-      let sum = 0;
-
-      cart.forEach((item, index) => {
-        sum += item.price;
-
-        const li = document.createElement('li');
-
-        li.innerHTML = `
-          <span>${item.name} — $${item.price.toFixed(2)}</span>
-          <button onclick="removeFromCart(${index})">Remove</button>
-        `;
-
-        list.appendChild(li);
+    document.querySelectorAll("a, button").forEach(function(item) {
+      item.addEventListener("mouseenter", function() {
+        sparkleCursor.classList.add("is-hovering");
       });
 
-      total.textContent = sum.toFixed(2);
-    }
-
-    function checkout() {
-      if (cart.length === 0) {
-        alert('Your cart is empty. Find a little mystery first!');
-        return;
-      }
-
-      alert('Your cart is ready! Online payments will be added when your shop is ready to launch.');
-    }
+      item.addEventListener("mouseleave", function() {
+        sparkleCursor.classList.remove("is-hovering");
+      });
+    });
   </script>
-
 </body>
 </html>

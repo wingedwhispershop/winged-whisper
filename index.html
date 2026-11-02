@@ -94,6 +94,8 @@ footer{border-top:1px solid var(--line);border-bottom:0;color:var(--muted)}
 </style>
 </head>
 <body>
+  <div class="stars" aria-hidden="true"></div>
+<div class="sparkle-cursor" id="sparkle-cursor" aria-hidden="true">✦</div>
 <header>
 <img class="banner" src="wingedwhisperbanner.jpg" alt="Winged Whisper" onerror="this.hidden=true">
 <div class="brand">Winged Whisper</div>
@@ -263,6 +265,30 @@ const checkoutLinks = {
   medium: "https://buy.stripe.com/fZu28r4TrdikdPAbBTfUQ06",
   large: "https://buy.stripe.com/bJe7sL5Xv2DGeTE8pHfUQ07"
 };
+  const sparkleCursor = document.getElementById("sparkle-cursor");
+let lastTrailTime = 0;
+
+document.addEventListener("mousemove", event => {
+  sparkleCursor.style.left = event.clientX + "px";
+  sparkleCursor.style.top = event.clientY + "px";
+
+  const now = Date.now();
+  if (now - lastTrailTime > 65) {
+    lastTrailTime = now;
+    const trail = document.createElement("span");
+    trail.className = "cursor-trail";
+    trail.textContent = Math.random() > .5 ? "✧" : "·";
+    trail.style.left = event.clientX + "px";
+    trail.style.top = event.clientY + "px";
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 700);
+  }
+});
+
+document.querySelectorAll("a,button").forEach(item => {
+  item.addEventListener("mouseenter", () => sparkleCursor.classList.add("is-hovering"));
+  item.addEventListener("mouseleave", () => sparkleCursor.classList.remove("is-hovering"));
+});
 
 const themes = [
 ["Moonlit Magic","☾","A dreamy collection inspired by the night sky, moon and stars."],
